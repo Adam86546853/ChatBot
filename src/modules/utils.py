@@ -6,6 +6,8 @@ import pdfplumber
 from modules.chatbot import Chatbot
 from modules.embedder import Embedder
 
+os.environ["OPENAI_API_KEY"] = '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'
+
 class Utilities:
 
     @staticmethod
@@ -17,7 +19,7 @@ class Utilities:
         if not hasattr(st.session_state, "api_key"):
             st.session_state.api_key = None
         #you can define your API key in .env directly
-        if os.path.exists(".env") and os.environ.get("OPENAI_API_KEY") is not None:
+        if os.path.exists(".env") or os.environ.get("OPENAI_API_KEY") is not None:
             user_api_key = os.environ["OPENAI_API_KEY"]
             st.sidebar.success("API key loaded from .env", icon="🚀")
         else:
@@ -40,9 +42,8 @@ class Utilities:
         Handles and display uploaded_file
         :param file_types: List of accepted file types, e.g., ["csv", "pdf", "txt"]
         """
-        uploaded_file = st.sidebar.file_uploader("upload", type=file_types, label_visibility="collapsed")
+        uploaded_file = st.sidebar.file_uploader("upload", type=file_types, label_visibility="collapsed",accept_multiple_files=False)
         if uploaded_file is not None:
-
             def show_csv_file(uploaded_file):
                 file_container = st.expander("Your CSV file :")
                 uploaded_file.seek(0)
@@ -67,7 +68,6 @@ class Utilities:
                 return os.path.splitext(uploaded_file)[1].lower()
             
             file_extension = get_file_extension(uploaded_file.name)
-
             # Show the contents of the file based on its extension
             #if file_extension == ".csv" :
             #    show_csv_file(uploaded_file)

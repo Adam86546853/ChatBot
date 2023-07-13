@@ -7,19 +7,18 @@ from modules.sidebar import Sidebar
 from youtube_transcript_api import YouTubeTranscriptApi
 from langchain.chains.summarize import load_summarize_chain
 from langchain.chains import AnalyzeDocumentChain
-from youtube_transcript_api import YouTubeTranscriptApi
 from langchain.llms import OpenAI
 import os
 from langchain.text_splitter import CharacterTextSplitter
 
-st.set_page_config(layout="wide", page_icon="💬", page_title="Robby | Chat-Bot 🤖")
+st.set_page_config(layout="wide", page_icon="🇨🇳", page_title="ChatBot")
 
 # Instantiate the main components
 layout, sidebar, utils = Layout(), Sidebar(), Utilities()
 
 st.markdown(
     f"""
-    <h1 style='text-align: center;'> Ask Robby to summarize youtube video ! 😁</h1>
+    <h1 style='text-align: center;'> Ask ChatBot to summarize youtube video ! 😁</h1>
     """,
     unsafe_allow_html=True,
 )
@@ -50,9 +49,8 @@ else:
     video_url = st.text_input(placeholder="Enter Youtube Video URL", label_visibility="hidden", label =" ")
     if video_url :
         video_id = get_youtube_id(video_url)
-
         if video_id != "":
-            t = YouTubeTranscriptApi.get_transcript(video_id, languages=('en','fr','es', 'zh-cn', 'hi', 'ar', 'bn', 'ru', 'pt', 'sw' ))
+            t = YouTubeTranscriptApi.get_transcript(video_id, languages=('None','zh-Hans','zh-Hant','en-US','en', ))
             finalString = ""
             for item in t:
                 text = item['text']

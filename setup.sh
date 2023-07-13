@@ -2,14 +2,14 @@ mkdir -p ~/.streamlit/
 
 echo "\
 [general]\n\
-email = \"yvannbarbotts@gmail.com\"\n\
+email = \"adam86546853@gmail.com\"\n\
 " > ~/.streamlit/credentials.toml
 
 echo "\
 [server]\n\
 headless = true\n\
 enableCORS=false\n\
-port = $PORT\n\
+port = 29890\n\
 \n\
 [theme]\n\
 base = \"light\"\n\

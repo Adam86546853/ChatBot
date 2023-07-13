@@ -6,7 +6,7 @@ st.set_page_config(layout="wide", page_icon="🇨🇳", page_title="ChatBot")
 
 
 #Contact
-with st.sidebar.expander("Contact"):
+with st.sidebar.expander("Contact",expanded=True):
 
     st.write("**GitHub:**",
 "[adam86546853/chatbot](https://github.com/Adam86546853/Robby-chatbot)")
@@ -35,7 +35,7 @@ st.markdown(
 st.markdown("---")
 
 
-#Robby's Pages
+#RPages
 st.subheader("Discover")
 st.write("""
 - **Chat**: General Chat on data (PDF, TXT,CSV) with a [vectorstore](https://github.com/facebookresearch/faiss) (index useful parts(max 4) for respond to the user) | works with [ConversationalRetrievalChain](https://python.langchain.com/en/latest/modules/chains/index_examples/chat_vector_db.html)

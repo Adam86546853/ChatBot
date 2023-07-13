@@ -41,10 +41,10 @@ else:
     os.environ["OPENAI_API_KEY"] = user_api_key
 
     uploaded_file = utils.handle_upload(["pdf", "txt", "csv"])
-
     if uploaded_file:
 
         # Configure the sidebar
+        sidebar.reset_chat_button()
         sidebar.show_options()
         sidebar.about()
 
