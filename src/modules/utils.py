@@ -6,7 +6,7 @@ import pdfplumber
 from modules.chatbot import Chatbot
 from modules.embedder import Embedder
 
-os.environ["OPENAI_API_KEY"] = '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'
+os.environ["OPENAI_API_KEY"] = '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'
 
 class Utilities:
 

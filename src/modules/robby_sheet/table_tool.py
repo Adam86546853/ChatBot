@@ -27,22 +27,10 @@ class PandasAgent :
 
     def get_agent_response(self, uploaded_file_content, query):
         llm = OpenAI()
-        pandas_ai = PandasAI(llm, verbose=True,save_charts=True)
-        old_stdout = sys.stdout
-        sys.stdout = captured_output = StringIO()
-        
+        pandas_ai = PandasAI(llm, verbose=True)
         response = pandas_ai(data_frame = uploaded_file_content, prompt=query)
-
-        captured_output.flush()
-        sys.stdout = old_stdout
+        captured_output = '\n'.join(pandas_ai._logs)
         return str(response), captured_output
-
-    def process_agent_thoughts(self,captured_output):
-        thoughts = captured_output.getvalue()
-        cleaned_thoughts = thoughts # do nothing
-        #cleaned_thoughts = re.sub(r'\x1b\[[0-9;]*[a-zA-Z]', '', thoughts)
-        #cleaned_thoughts = re.sub(r'\[1m>', '', cleaned_thoughts)
-        return cleaned_thoughts
 
     def display_agent_thoughts(self,cleaned_thoughts):
         with st.expander("Display the agent's thoughts"):
