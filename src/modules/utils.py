@@ -6,7 +6,6 @@ import pdfplumber
 from modules.chatbot import Chatbot
 from modules.embedder import Embedder
 
-#os.environ["OPENAI_API_KEY"] = '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'
 
 class Utilities:
 
@@ -28,7 +27,7 @@ class Utilities:
                 st.sidebar.success("API key loaded from previous input", icon="🚀")
             else:
                 user_api_key = st.sidebar.text_input(
-                    label="#### Your OpenAI API key 👇", placeholder="sk-...", type="password"
+                    label="#### Your OpenAI API key 👇", placeholder="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", type="password"
                 )
                 if user_api_key:
                     st.session_state.api_key = user_api_key
