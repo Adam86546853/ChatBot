@@ -46,7 +46,7 @@ else:
                 video_id = match.group()
         return video_id
 
-    video_url = st.text_input(placeholder="Enter Youtube Video URL", label_visibility="hidden", label =" ")
+    video_url = st.text_input(placeholder="Enter Youtube Video URL:https://www.youtube.com/watch?v=cnc8mDAB7QI", label_visibility="hidden", label =" ")
     if video_url :
         video_id = get_youtube_id(video_url)
         if video_id != "":
