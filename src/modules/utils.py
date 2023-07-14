@@ -19,7 +19,7 @@ class Utilities:
         if not hasattr(st.session_state, "api_key"):
             st.session_state.api_key = None
         #you can define your API key in .env directly
-        if os.path.exists(".env") or os.environ.get("OPENAI_API_KEY") is not None:
+        if os.path.exists(".env") and os.environ.get("OPENAI_API_KEY") is not None:
             user_api_key = os.environ["OPENAI_API_KEY"]
             st.sidebar.success("API key loaded from .env", icon="🚀")
         else:
