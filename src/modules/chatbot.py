@@ -3,7 +3,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.chains import ConversationalRetrievalChain
 from langchain.prompts.prompt import PromptTemplate
 from langchain.callbacks import get_openai_callback
-
+from langchain.memory import ChatMessageHistory
 #fix Error: module 'langchain' has no attribute 'verbose'
 import langchain
 langchain.verbose = False
@@ -48,6 +48,24 @@ class Chatbot:
         #count_tokens_chain(chain, chain_input)
         return result["answer"]
 
+    def chat_message_history(self, query, is_his):
+        """
+        Start a conversational chat with a chatmodel
+        """
+        llm = ChatOpenAI(model_name=self.model_name, temperature=self.temperature)
+       # 初始化 MessageHistory 对象
+        history = ChatMessageHistory()
+        if is_his:
+            # 给 MessageHistory 对象添加对话内容
+            for q,a in st.session_state["history"]:
+                history.add_ai_message(a)
+                history.add_user_message(q)
+
+        history.add_user_message(query)
+        result = llm(history.messages)
+        st.session_state["history"].append((query, result.content))
+        #count_tokens_chain(chain, chain_input)
+        return result.content
 
 def count_tokens_chain(chain, query):
     with get_openai_callback() as cb:

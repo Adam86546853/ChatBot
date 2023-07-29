@@ -27,7 +27,7 @@ class Utilities:
                 st.sidebar.success("API key loaded from previous input", icon="🚀")
             else:
                 user_api_key = st.sidebar.text_input(
-                    label="#### Your OpenAI API key 👇", value="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", type="password"
+                    label="#### Your OpenAI API key 👇", placeholder="sk-...", type="password"
                 )
                 if user_api_key:
                     st.session_state.api_key = user_api_key
