@@ -11,7 +11,7 @@
 
 ### Launch the chat service locally :
 
-- `streamlit run src/Home.py`
+- `streamlit run src/Home.py --server.port 6006`
 ## That's it! The service is now up and running locally. 🤗
 
 
