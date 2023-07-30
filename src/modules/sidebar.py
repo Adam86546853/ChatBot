@@ -2,7 +2,7 @@ import streamlit as st
 
 class Sidebar:
 
-    MODEL_OPTIONS = ["gpt-3.5-turbo", "gpt-4"]
+    MODEL_OPTIONS = ["chat-glm2-6b","gpt-3.5-turbo"]
     TEMPERATURE_MIN_VALUE = 0.0
     TEMPERATURE_MAX_VALUE = 1.0
     TEMPERATURE_DEFAULT_VALUE = 0.0
@@ -10,7 +10,7 @@ class Sidebar:
 
     @staticmethod
     def about():
-        about = st.sidebar.expander("🧠 About ChatBot ",expanded=True)
+        about = st.sidebar.expander("🧠 About ChatBot ",expanded=False)
         sections = [
             "#### ChatBot uses large language models to provide users with natural language interactions about user data content. 🌐",
             "#### Powered by [Langchain](https://github.com/hwchase17/langchain), [OpenAI](https://platform.openai.com/docs/models/gpt-3-5) and [Streamlit](https://github.com/streamlit/streamlit) ⚡"

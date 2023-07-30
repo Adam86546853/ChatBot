@@ -33,7 +33,7 @@ class Chatbot:
         """
         Start a conversational chat with a model via Langchain
         """
-        llm = ChatOpenAI(model_name=self.model_name, temperature=self.temperature)
+        llm = ChatOpenAI(model=self.model_name, temperature=self.temperature)
 
         retriever = self.vectors.as_retriever()
 

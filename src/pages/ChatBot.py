@@ -30,7 +30,7 @@ Sidebar = sidebar_module.Sidebar
 st.set_page_config(layout="wide", page_icon="🇨🇳", page_title="ChatBot")
 
 # Instantiate the main components
-layout, sidebar, utils = Layout(), Sidebar(), Utilities()
+sidebar,layout, utils = Sidebar(), Layout(), Utilities()
 
 st.markdown(
     f"""
@@ -39,17 +39,23 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-user_api_key = utils.load_api_key()
+#初始化为chatglm
+utils.initialize_chatglm()
+
+# Configure the sidebar
+sidebar.show_options()
+sidebar.about()
+
+
+user_api_key = os.environ["OPENAI_API_KEY"]
+if 'gpt' in st.session_state["model"]:
+    user_api_key = utils.initialize_gpt()
 
 if not user_api_key:
     layout.show_api_key_missing()
 else:
     os.environ["OPENAI_API_KEY"] = user_api_key
-
-    # Configure the sidebar
     sidebar.reset_chat_button()
-    sidebar.show_options()
-    sidebar.about()
 
     # Initialize chat history
     history = ChatHistory()

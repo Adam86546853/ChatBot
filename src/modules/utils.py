@@ -27,14 +27,27 @@ class Utilities:
                 st.sidebar.success("API key loaded from previous input", icon="🚀")
             else:
                 user_api_key = st.sidebar.text_input(
-                    label="#### Your OpenAI API key 👇", placeholder="sk-...", type="password"
+                    label="#### Enter OpenAI API key 👇", placeholder="sk-...", type="password"
                 )
                 if user_api_key:
                     st.session_state.api_key = user_api_key
 
         return user_api_key
 
-    
+    @staticmethod
+    def initialize_chatglm():
+        st.session_state['model'] = 'chat-glm2-6b' 
+        os.environ["OPENAI_API_BASE"] = 'http://localhost:6006/v1'
+        os.environ["OPENAI_API_KEY"] = 'EMPTY'
+        os.environ["FASTCHAT_WORKER_API_EMBEDDING_BATCH_SIZE"] = '1'
+
+    @staticmethod
+    def initialize_gpt():
+        os.environ["OPENAI_API_BASE"] = 'https://api.openai.com/v1'
+        os.environ["OPENAI_API_TYPE"] = 'open_ai'
+        os.environ.pop('FASTCHAT_WORKER_API_EMBEDDING_BATCH_SIZE', None)
+        return Utilities.load_api_key()
+
     @staticmethod
     def handle_upload(file_types):
         """

@@ -30,23 +30,28 @@ st.set_page_config(layout="wide", page_icon="🇨🇳", page_title="ChatBot")
 
 # Instantiate the main components
 layout, sidebar, utils = Layout(), Sidebar(), Utilities()
-
 layout.show_header("PDF, TXT, CSV")
 
-user_api_key = utils.load_api_key()
+#初始化为chatglm
+utils.initialize_chatglm()
+
+# Configure the sidebar
+sidebar.show_options()
+
+
+user_api_key = os.environ["OPENAI_API_KEY"]
+if 'gpt' in st.session_state["model"]:
+    user_api_key = utils.initialize_gpt()
 
 if not user_api_key:
     layout.show_api_key_missing()
 else:
     os.environ["OPENAI_API_KEY"] = user_api_key
-
     uploaded_file = utils.handle_upload(["pdf", "txt", "csv"])
-    if uploaded_file:
+    sidebar.about()
 
-        # Configure the sidebar
+    if uploaded_file:
         sidebar.reset_chat_button()
-        sidebar.show_options()
-        sidebar.about()
 
         # Initialize chat history
         history = ChatHistory()
@@ -55,10 +60,9 @@ else:
                 uploaded_file, st.session_state["model"], st.session_state["temperature"]
             )
             st.session_state["chatbot"] = chatbot
-
             if st.session_state["ready"]:
                 # Create containers for chat responses and user prompts
-                response_container, prompt_container = st.container(), st.container()
+                response_container,prompt_container  = st.container(), st.container()
 
                 with prompt_container:
                     # Display the prompt form
@@ -89,7 +93,7 @@ else:
                         cleaned_thoughts = re.sub(r'\x1b\[[0-9;]*[a-zA-Z]', '', thoughts)
                         cleaned_thoughts = re.sub(r'\[1m>', '', cleaned_thoughts)
 
-                        # Display the agent's thoughts
+                        #Display the agent's thoughts
                         with st.expander("Display the agent's thoughts"):
                             st.write(cleaned_thoughts)
 
